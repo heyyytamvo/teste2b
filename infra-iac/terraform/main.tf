@@ -42,7 +42,7 @@ locals {
   # Define common resource tags to be applied to all resources
   common_tags = {
     Environment = var.environment
-    Project     = "E2B"
+    Project     = "e2b"
     Owner       = "AWS"
     ManagedBy   = "Terraform"
   }
@@ -51,32 +51,32 @@ locals {
   clusters = {
     # Server nodes run Consul and Nomad servers
     server = {
-      instance_type_x86    = var.environment == "prod" ? "m6i.xlarge" : "t3.xlarge"
-      instance_type_arm    = var.environment == "prod" ? "m7g.xlarge" : "t4g.xlarge"
-      desired_capacity = 3
+      instance_type_x86    = var.environment == "prod" ? "t3.medium" : "t3.medium"
+      instance_type_arm    = var.environment == "prod" ? "t3.medium" : "t3.medium"
+      desired_capacity = 2
       max_size         = 3
-      min_size         = 3
+      min_size         = 2
     }
     # Client nodes run workloads and containers
     client = {
-      instance_type_x86    = "c5.metal"
-      instance_type_arm    = "c7g.metal"
+      instance_type_x86    = "t3.medium"
+      instance_type_arm    = "t3.medium"
       desired_capacity = 1
       max_size         = 5
       min_size         = 0
     }
     # API nodes run the API service
     api = {
-      instance_type_x86    = var.environment == "prod" ? "m6i.xlarge" : "t3.xlarge"
-      instance_type_arm    = var.environment == "prod" ? "m7g.xlarge" : "t4g.xlarge"
+      instance_type_x86    = var.environment == "prod" ? "t3.medium" : "t3.medium"
+      instance_type_arm    = var.environment == "prod" ? "t3.medium" : "t3.medium"
       desired_capacity = 1
       max_size         = 1
       min_size         = 1
     }
     # Build nodes for environment building (currently not active)
     build = {
-      instance_type_x86    = var.environment == "prod" ? "m6i.xlarge" : "t3.xlarge"
-      instance_type_arm    = var.environment == "prod" ? "m7g.xlarge" : "t4g.xlarge"
+      instance_type_x86    = var.environment == "prod" ? "t3.medium" : "t3.medium"
+      instance_type_arm    = var.environment == "prod" ? "t3.medium" : "t3.medium"
       desired_capacity = 0
       max_size         = 0
       min_size         = 0
