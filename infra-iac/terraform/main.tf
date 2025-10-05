@@ -55,7 +55,7 @@ locals {
       instance_type_arm    = var.environment == "prod" ? "t3.medium" : "t3.medium"
       desired_capacity = 2
       max_size         = 3
-      min_size         = 2
+      min_size         = 3
     }
     # Client nodes run workloads and containers
     client = {
@@ -433,7 +433,7 @@ resource "aws_launch_template" "server" {
   }
 
   user_data = base64encode(templatefile("${path.module}/scripts/start-server.sh", {
-    NUM_SERVERS                  = 3
+    NUM_SERVERS                  = 2
     CLUSTER_TAG_NAME             = "server-cluster"
     SCRIPTS_BUCKET               = aws_s3_bucket.setup_bucket.bucket
     NOMAD_TOKEN                  = aws_secretsmanager_secret_version.nomad_acl_token.secret_string
